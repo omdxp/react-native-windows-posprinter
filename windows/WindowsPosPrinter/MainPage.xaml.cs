@@ -47,17 +47,29 @@ namespace WindowsPosPrinter
         private const string pNumber = "0540869390";
         private const string pProductExamplePrice = "5000.00 DA * (1)";
         private const string pProductExampleTitle = "Aspirine Upsa";
-        private const string pLine = "-----------------------------------";
-        private const string pCollectedAmount = "Collected amount : 5600 DA";
-        private const string pDiscount = "Discount : 0 DA";
-        private const string pCharge = "0.00 DA";
-        private const string pTotal = "Total : 5600 DA";
-        private const string pTicketNumber = "Ticket number : #1125";
+        private const string pLine = "------------------------------------------------";
+        private const string pCollectedAmount = "Collected amount : ";
+        private const string pDiscount = "Discount : ";
+        private const string pCharge = "Charge : ";
+        private const string pCaissier = "Caissier : ";
+        private const string pTotal = "Total : ";
+        private const string pTicketNumber = "Ticket number : #";
         private string pDate = DateTime.Now.ToString();
         private const string pCombienDeCopie = "Combien de copie?";
         private const string pNombreCopie = "1";
         [ReactMethod("printReceipt")]
-        public bool printReceipt(string storeName, string addrs, string phoneNumber, string numberOfCopies, string ticketNumber)
+        public bool printReceipt(
+            string storeName,
+            string addrs,
+            string phoneNumber,
+            string numberOfCopies,
+            string ticketNumber,
+            List<string> products,
+            string collectedAmount,
+            string discount,
+            string charge,
+            string caissier,
+            string total)
         {
             bool printed = false;
             try
@@ -65,33 +77,35 @@ namespace WindowsPosPrinter
                 for (int i = 0; i < int.Parse(numberOfCopies); i++)
                 {
                     SelectCharSizeHeight(CharSizeHeight.Double).Add(InitializePrinter).Print(address);
-                    SelectCharSizeHeight(CharSizeHeight.Double).Add(LF).Print(address);
+                    SelectCharSizeHeight(CharSizeHeight.Triple).Add("").Print(address);
+                    SelectCharSizeWidth(CharSizeWidth.Triple).Add("").Print(address);
                     SelectJustification(Justification.Center).Add(storeName, LF).Print(address);
-                    SelectCharSizeHeight(CharSizeHeight.Normal).Add(LF).Print(address);
-                    SelectJustification(Justification.Center).Add("Address", LF).Print(address);
+                    SelectCharSizeHeight(CharSizeHeight.Normal).Add("").Print(address);
                     SelectJustification(Justification.Center).Add(addrs, LF).Print(address);
-                    SelectJustification(Justification.Center).Add("Number", LF).Print(address);
                     SelectJustification(Justification.Center).Add(phoneNumber, LF).Print(address);
                     SelectJustification(Justification.Center).Add(pLine, LF).Print(address);
-                    SelectJustification(Justification.Left).Add("* Product example", LF).Print(address);
-                    SelectJustification(Justification.Left).Add(pProductExamplePrice, LF).Print(address);
-                    SelectJustification(Justification.Left).Add(pProductExampleTitle, LF).Print(address);
+                    products.ForEach(delegate (String product)
+                    {
+                        SelectJustification(Justification.Left).Add("* " + product, LF).Print(address);
+                    });
                     SelectJustification(Justification.Center).Add(pLine, LF).Print(address);
-                    SelectJustification(Justification.Left).Add(pCollectedAmount, LF).Print(address);
-                    SelectJustification(Justification.Left).Add(pDiscount, LF).Print(address);
-                    SelectJustification(Justification.Left).Add(pCharge, LF).Print(address);
-                    SelectCharSizeHeight(CharSizeHeight.Double).Add(LF).Print(address);
-                    SelectJustification(Justification.Center).Add(pTotal, LF).Print(address);
+                    SelectJustification(Justification.Left).Add(pCollectedAmount + collectedAmount, LF).Print(address);
+                    SelectJustification(Justification.Left).Add(pDiscount + discount, LF).Print(address);
+                    SelectJustification(Justification.Left).Add(pCharge + charge, LF).Print(address);
+                    SelectJustification(Justification.Left).Add(pCaissier + caissier, LF).Print(address);
+                    SelectCharSizeHeight(CharSizeHeight.Triple).Add(LF).Print(address);
+                    SelectCharSizeWidth(CharSizeWidth.Double).Add("").Print(address);
+                    SelectJustification(Justification.Center).Add(pTotal + total, LF).Print(address);
                     SelectCharSizeHeight(CharSizeHeight.Normal).Add(LF).Print(address);
                     SelectJustification(Justification.Center).Add(pLine, LF).Print(address);
-                    SelectCharSizeHeight(CharSizeHeight.Normal).Add(LF).Print(address);
-                    SelectJustification(Justification.Left).Add(pTicketNumber, LF).Print(address);
+                    SelectCharSizeHeight(CharSizeHeight.Normal).Add("").Print(address);
+                    SelectJustification(Justification.Left).Add(pTicketNumber + ticketNumber, LF).Print(address);
                     SelectJustification(Justification.Left).Add(pDate, LF).Print(address);
-                    SelectJustification(Justification.Center).Add(pCombienDeCopie, LF).Print(address);
-                    SelectJustification(Justification.Center).Add(numberOfCopies, LF).Print(address);
-                    SelectCharSizeHeight(CharSizeHeight.Double).Add(LF).Print(address);
+                    SelectCharSizeHeight(CharSizeHeight.Double).Add("").Print(address);
+                    SelectJustification(Justification.Center).Add(LF).Print(address);
                     PrintQRCode(ticketNumber).Print(address);
-                    SelectCharSizeHeight(CharSizeHeight.Double).Add(LF).Print(address);
+                    SelectCharSizeHeight(CharSizeHeight.Triple).Add("").Print(address);
+                    SelectCharSizeWidth(CharSizeWidth.Double).Add(LF).Print(address);
                     SelectJustification(Justification.Center).Add("Merci pour votre visite", LF, LF, LF, LF, LF, PaperCut).Print(address);
                 }
 

@@ -36,11 +36,21 @@ export default function HomeUI() {
       return;
     }
     NativeModules.PosPrinter.printReceipt(
-      storeName,
-      address,
-      phoneNumber,
-      numberOfCopies,
-      '1125',
+      storeName, // store name
+      address, // address
+      phoneNumber, // phone number
+      numberOfCopies, // number of copies
+      '1125', // ticket no
+      [
+        'Kertou Shizao : 200.00 DA x (1)',
+        'What : 200.00 DA x (2)',
+        'hei : 200.00 DA x (3)',
+      ], // list of products
+      '23600 DA', // collected amount
+      '0 DA', // discount
+      '0.00 DA', // charge
+      'Jaden', // caissier
+      '23600 DA', // total
       function (result) {
         if (result) {
           dispatch(updateQuantityReceipt());
