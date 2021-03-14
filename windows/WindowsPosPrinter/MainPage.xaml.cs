@@ -89,7 +89,8 @@ namespace WindowsPosPrinter
                 SelectJustification(Justification.Center).Add("Merci pour votre visite", LF, LF, LF, LF, LF, PaperCut).Print(address);
             }
 
-            SelectJustification(Justification.Center).Add(PrintAndReturnToStandardMode, OpenDrawer).Print(address);
+            //SelectJustification(Justification.Center).Add(PrintAndReturnToStandardMode, OpenDrawer).Print(address);
+            SelectJustification(Justification.Center).Add(PrintAndReturnToStandardMode).Print(address);
         }
     }
 }
