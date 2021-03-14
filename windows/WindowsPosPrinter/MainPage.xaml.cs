@@ -57,14 +57,15 @@ namespace WindowsPosPrinter
         private const string pCombienDeCopie = "Combien de copie?";
         private const string pNombreCopie = "1";
         [ReactMethod("printReceipt")]
-        public bool printReceipt(string storeName, string addrs, string phoneNumber, string numberOfCopies)
+        public bool printReceipt(string storeName, string addrs, string phoneNumber, string numberOfCopies, string ticketNumber)
         {
             bool printed = false;
             try
             {
                 for (int i = 0; i < int.Parse(numberOfCopies); i++)
                 {
-                    SelectCharSizeHeight(CharSizeHeight.Double).Add(InitializePrinter, LF).Print(address);
+                    SelectCharSizeHeight(CharSizeHeight.Double).Add(InitializePrinter).Print(address);
+                    SelectCharSizeHeight(CharSizeHeight.Double).Add(LF).Print(address);
                     SelectJustification(Justification.Center).Add(storeName, LF).Print(address);
                     SelectCharSizeHeight(CharSizeHeight.Normal).Add(LF).Print(address);
                     SelectJustification(Justification.Center).Add("Address", LF).Print(address);
@@ -88,6 +89,8 @@ namespace WindowsPosPrinter
                     SelectJustification(Justification.Left).Add(pDate, LF).Print(address);
                     SelectJustification(Justification.Center).Add(pCombienDeCopie, LF).Print(address);
                     SelectJustification(Justification.Center).Add(numberOfCopies, LF).Print(address);
+                    SelectCharSizeHeight(CharSizeHeight.Double).Add(LF).Print(address);
+                    PrintQRCode(ticketNumber).Print(address);
                     SelectCharSizeHeight(CharSizeHeight.Double).Add(LF).Print(address);
                     SelectJustification(Justification.Center).Add("Merci pour votre visite", LF, LF, LF, LF, LF, PaperCut).Print(address);
                 }
