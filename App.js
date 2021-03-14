@@ -7,7 +7,7 @@ import Home from './app/screens/Home/ui/HomeUI';
 export default function App() {
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+      <PersistGate persistor={persistor} loading={null}>
         <Home />
       </PersistGate>
     </Provider>
