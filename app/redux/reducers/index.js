@@ -6,7 +6,7 @@ export const initState = {
 };
 
 export const addSomethingReducer = (state = initState, action) => {
-  switch (type) {
+  switch (action.type) {
     case ADD_SOMETHING:
       return {
         ...state,
