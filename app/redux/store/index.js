@@ -2,12 +2,12 @@
 import {createStore, combineReducers} from 'redux';
 
 // import redux reducers
-import {addSomethingReducer} from '../reducers';
+import {ReceiptReducer} from '../reducers';
 
 // define app reducers
 const appReducers = combineReducers({
   // you need to add your reducers here
-  addSomethingReducer,
+  ReceiptReducer,
 });
 
 // export store

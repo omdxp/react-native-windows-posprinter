@@ -1,16 +1,29 @@
-import {ADD_SOMETHING} from '../constants';
+import {UPDATE_RECEIPT, UPDATE_QUANTITY_RECEIPT} from '../constants';
 
 // write your redux reducers here
 export const initState = {
-  something: '',
+  storeName: '',
+  address: '',
+  phoneNumber: '',
+  numberOfCopies: '',
+  quantityPrinted: 0,
 };
 
-export const addSomethingReducer = (state = initState, action) => {
+export const ReceiptReducer = (state = initState, action) => {
   switch (action.type) {
-    case ADD_SOMETHING:
+    case UPDATE_RECEIPT:
       return {
         ...state,
-        something: action.payload,
+        storeName: action.storeName,
+        address: action.address,
+        phoneNumber: action.phoneNumber,
+        numberOfCopies: action.numberOfCopies,
+      };
+
+    case UPDATE_QUANTITY_RECEIPT:
+      return {
+        ...state,
+        quantityPrinted: state.quantityPrinted + 1,
       };
 
     default:

@@ -1,5 +1,5 @@
 // import react native
-import React, {useReducer} from 'react';
+import React, {useState, useReducer} from 'react';
 import {
   Text,
   View,
@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 
 // import redux
-import {initState, addSomethingReducer} from '../../../redux/reducers';
+import {initState, ReceiptReducer} from '../../../redux/reducers';
+import {updateReceipt, updateQuantityReceipt} from '../../../redux/actions';
 
 // import Home functions
 import {} from '../functions';
@@ -17,13 +18,13 @@ import {} from '../functions';
 // export Home UI
 export default function HomeUI() {
   // use reducer
-  const [state, dispatch] = useReducer(addSomethingReducer, initState);
-  console.log('state:', state);
+  const [state, dispatch] = useReducer(ReceiptReducer, initState);
+  console.log(state);
   // states
-  const [storeName, setStoreName] = useState('');
-  const [address, setAddress] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [numberOfCopies, setNumberOfCopies] = useState('');
+  const [storeName, setStoreName] = useState(state.storeName);
+  const [address, setAddress] = useState(state.address);
+  const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
+  const [numberOfCopies, setNumberOfCopies] = useState(state.numberOfCopies);
   const printPressHandler = () => {
     if (
       storeName === '' ||
@@ -39,6 +40,11 @@ export default function HomeUI() {
       address,
       phoneNumber,
       numberOfCopies,
+      function (result) {
+        if (result) {
+          dispatch(updateQuantityReceipt());
+        }
+      },
     );
   };
 
@@ -58,21 +64,48 @@ export default function HomeUI() {
           placeholder={'Store name'}
           style={{width: 200, textAlign: 'center'}}
           value={storeName}
-          onChangeText={(text) => setStoreName(text)}
+          onChangeText={(text) => {
+            setStoreName(text);
+            const payload = {
+              storeName,
+              address,
+              phoneNumber,
+              numberOfCopies,
+            };
+            dispatch(updateReceipt(payload));
+          }}
         />
         <Text>Address</Text>
         <TextInput
           placeholder={'Your address'}
           style={{width: 200, textAlign: 'center'}}
           value={address}
-          onChangeText={(text) => setAddress(text)}
+          onChangeText={(text) => {
+            setAddress(text);
+            const payload = {
+              storeName,
+              address,
+              phoneNumber,
+              numberOfCopies,
+            };
+            dispatch(updateReceipt(payload));
+          }}
         />
         <Text>Phone number</Text>
         <TextInput
           placeholder={'Your phone number'}
           style={{width: 200, textAlign: 'center'}}
           value={phoneNumber}
-          onChangeText={(text) => setPhoneNumber(text)}
+          onChangeText={(text) => {
+            setPhoneNumber(text);
+            const payload = {
+              storeName,
+              address,
+              phoneNumber,
+              numberOfCopies,
+            };
+            dispatch(updateReceipt(payload));
+          }}
         />
         <Text>---------------------------------------</Text>
         <Text style={{alignSelf: 'flex-start'}}>* Product example</Text>
@@ -93,7 +126,16 @@ export default function HomeUI() {
           placeholder={'Type a number'}
           style={{width: 200, textAlign: 'center'}}
           value={numberOfCopies}
-          onChangeText={(text) => setNumberOfCopies(text)}
+          onChangeText={(text) => {
+            setNumberOfCopies(text);
+            const payload = {
+              storeName,
+              address,
+              phoneNumber,
+              numberOfCopies,
+            };
+            dispatch(updateReceipt(payload));
+          }}
         />
         <Text style={{fontSize: 20}}>Merci pour votre visite</Text>
       </View>

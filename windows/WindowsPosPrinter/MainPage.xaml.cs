@@ -57,40 +57,50 @@ namespace WindowsPosPrinter
         private const string pCombienDeCopie = "Combien de copie?";
         private const string pNombreCopie = "1";
         [ReactMethod("printReceipt")]
-        public void printReceipt(string storeName, string addrs, string phoneNumber, string numberOfCopies)
+        public bool printReceipt(string storeName, string addrs, string phoneNumber, string numberOfCopies)
         {
-            for (int i = 0; i < int.Parse(numberOfCopies); i++)
+            bool printed = false;
+            try
             {
-                SelectCharSizeHeight(CharSizeHeight.Double).Add(InitializePrinter, LF).Print(address);
-                SelectJustification(Justification.Center).Add(storeName, LF).Print(address);
-                SelectCharSizeHeight(CharSizeHeight.Normal).Add(LF).Print(address);
-                SelectJustification(Justification.Center).Add("Address", LF).Print(address);
-                SelectJustification(Justification.Center).Add(addrs, LF).Print(address);
-                SelectJustification(Justification.Center).Add("Number", LF).Print(address);
-                SelectJustification(Justification.Center).Add(phoneNumber, LF).Print(address);
-                SelectJustification(Justification.Center).Add(pLine, LF).Print(address);
-                SelectJustification(Justification.Left).Add("* Product example", LF).Print(address);
-                SelectJustification(Justification.Left).Add(pProductExamplePrice, LF).Print(address);
-                SelectJustification(Justification.Left).Add(pProductExampleTitle, LF).Print(address);
-                SelectJustification(Justification.Center).Add(pLine, LF).Print(address);
-                SelectJustification(Justification.Left).Add(pCollectedAmount, LF).Print(address);
-                SelectJustification(Justification.Left).Add(pDiscount, LF).Print(address);
-                SelectJustification(Justification.Left).Add(pCharge, LF).Print(address);
-                SelectCharSizeHeight(CharSizeHeight.Double).Add(LF).Print(address);
-                SelectJustification(Justification.Center).Add(pTotal, LF).Print(address);
-                SelectCharSizeHeight(CharSizeHeight.Normal).Add(LF).Print(address);
-                SelectJustification(Justification.Center).Add(pLine, LF).Print(address);
-                SelectCharSizeHeight(CharSizeHeight.Normal).Add(LF).Print(address);
-                SelectJustification(Justification.Left).Add(pTicketNumber, LF).Print(address);
-                SelectJustification(Justification.Left).Add(pDate, LF).Print(address);
-                SelectJustification(Justification.Center).Add(pCombienDeCopie, LF).Print(address);
-                SelectJustification(Justification.Center).Add(numberOfCopies, LF).Print(address);
-                SelectCharSizeHeight(CharSizeHeight.Double).Add(LF).Print(address);
-                SelectJustification(Justification.Center).Add("Merci pour votre visite", LF, LF, LF, LF, LF, PaperCut).Print(address);
-            }
+                for (int i = 0; i < int.Parse(numberOfCopies); i++)
+                {
+                    SelectCharSizeHeight(CharSizeHeight.Double).Add(InitializePrinter, LF).Print(address);
+                    SelectJustification(Justification.Center).Add(storeName, LF).Print(address);
+                    SelectCharSizeHeight(CharSizeHeight.Normal).Add(LF).Print(address);
+                    SelectJustification(Justification.Center).Add("Address", LF).Print(address);
+                    SelectJustification(Justification.Center).Add(addrs, LF).Print(address);
+                    SelectJustification(Justification.Center).Add("Number", LF).Print(address);
+                    SelectJustification(Justification.Center).Add(phoneNumber, LF).Print(address);
+                    SelectJustification(Justification.Center).Add(pLine, LF).Print(address);
+                    SelectJustification(Justification.Left).Add("* Product example", LF).Print(address);
+                    SelectJustification(Justification.Left).Add(pProductExamplePrice, LF).Print(address);
+                    SelectJustification(Justification.Left).Add(pProductExampleTitle, LF).Print(address);
+                    SelectJustification(Justification.Center).Add(pLine, LF).Print(address);
+                    SelectJustification(Justification.Left).Add(pCollectedAmount, LF).Print(address);
+                    SelectJustification(Justification.Left).Add(pDiscount, LF).Print(address);
+                    SelectJustification(Justification.Left).Add(pCharge, LF).Print(address);
+                    SelectCharSizeHeight(CharSizeHeight.Double).Add(LF).Print(address);
+                    SelectJustification(Justification.Center).Add(pTotal, LF).Print(address);
+                    SelectCharSizeHeight(CharSizeHeight.Normal).Add(LF).Print(address);
+                    SelectJustification(Justification.Center).Add(pLine, LF).Print(address);
+                    SelectCharSizeHeight(CharSizeHeight.Normal).Add(LF).Print(address);
+                    SelectJustification(Justification.Left).Add(pTicketNumber, LF).Print(address);
+                    SelectJustification(Justification.Left).Add(pDate, LF).Print(address);
+                    SelectJustification(Justification.Center).Add(pCombienDeCopie, LF).Print(address);
+                    SelectJustification(Justification.Center).Add(numberOfCopies, LF).Print(address);
+                    SelectCharSizeHeight(CharSizeHeight.Double).Add(LF).Print(address);
+                    SelectJustification(Justification.Center).Add("Merci pour votre visite", LF, LF, LF, LF, LF, PaperCut).Print(address);
+                }
 
-            //SelectJustification(Justification.Center).Add(PrintAndReturnToStandardMode, OpenDrawer).Print(address);
-            SelectJustification(Justification.Center).Add(PrintAndReturnToStandardMode).Print(address);
+                //SelectJustification(Justification.Center).Add(PrintAndReturnToStandardMode, OpenDrawer).Print(address);
+                SelectJustification(Justification.Center).Add(PrintAndReturnToStandardMode).Print(address);
+                printed = true;
+            }
+            catch (Exception)
+            {
+
+            }
+            return printed;
         }
     }
 }
