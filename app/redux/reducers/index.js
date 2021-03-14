@@ -1,7 +1,7 @@
 import {ADD_SOMETHING} from '../constants';
 
 // write your redux reducers here
-initState = {
+export const initState = {
   something: '',
 };
 
