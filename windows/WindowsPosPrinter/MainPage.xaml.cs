@@ -59,18 +59,20 @@ namespace WindowsPosPrinter
         private const string pNombreCopie = "1";
         [ReactMethod("printReceipt")]
         public bool printReceipt(
-            string storeName,
-            string addrs,
-            string phoneNumber,
-            string numberOfCopies,
-            string ticketNumber,
-            List<string> products,
-            string collectedAmount,
-            string discount,
-            string charge,
-            string caissier,
-            string total)
+            List<string> ticketDetails,
+            List<string> products)
         {
+            string storeName = ticketDetails[0];
+            string addrs = ticketDetails[1];
+            string phoneNumber = ticketDetails[2];
+            string numberOfCopies = ticketDetails[3];
+            string ticketNumber = ticketDetails[4];
+            string collectedAmount = ticketDetails[5];
+            string discount = ticketDetails[6];
+            string charge = ticketDetails[7];
+            string caissier = ticketDetails[8];
+            string total = ticketDetails[9];
+
             bool printed = false;
             try
             {
@@ -109,8 +111,7 @@ namespace WindowsPosPrinter
                     SelectJustification(Justification.Center).Add("Merci pour votre visite", LF, LF, LF, LF, LF, PaperCut).Print(address);
                 }
 
-                //SelectJustification(Justification.Center).Add(PrintAndReturnToStandardMode, OpenDrawer).Print(address);
-                SelectJustification(Justification.Center).Add(PrintAndReturnToStandardMode).Print(address);
+                SelectJustification(Justification.Center).Add(PrintAndReturnToStandardMode, OpenDrawer).Print(address);
                 printed = true;
             }
             catch (Exception)

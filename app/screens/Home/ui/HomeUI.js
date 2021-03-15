@@ -1,5 +1,5 @@
 // import react native
-import React, {useState, useReducer} from 'react';
+import React, {useState, useReducer, useEffect} from 'react';
 import {
   Text,
   View,
@@ -11,6 +11,7 @@ import {
 // import redux
 import {initState, ReceiptReducer} from '../../../redux/reducers';
 import {updateReceipt, updateQuantityReceipt} from '../../../redux/actions';
+import {useSelector} from 'react-redux';
 
 // import Home functions
 import {} from '../functions';
@@ -19,12 +20,23 @@ import {} from '../functions';
 export default function HomeUI() {
   // use reducer
   const [state, dispatch] = useReducer(ReceiptReducer, initState);
-  console.log(state);
+  // use selector
+  const stateSelector = useSelector((state) => state.ReceiptReducer);
   // states
   const [storeName, setStoreName] = useState(state.storeName);
   const [address, setAddress] = useState(state.address);
   const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
   const [numberOfCopies, setNumberOfCopies] = useState(state.numberOfCopies);
+  // component did mount
+  useEffect(() => {
+    console.log('state:', state);
+    console.log('stateSelector:', stateSelector);
+    setStoreName(state.storeName);
+    setAddress(state.address);
+    setPhoneNumber(state.phoneNumber);
+    setNumberOfCopies(state.numberOfCopies);
+  }, []);
+  // print receipt press handler
   const printPressHandler = () => {
     if (
       storeName === '' ||
@@ -36,21 +48,23 @@ export default function HomeUI() {
       return;
     }
     NativeModules.PosPrinter.printReceipt(
-      storeName, // store name
-      address, // address
-      phoneNumber, // phone number
-      numberOfCopies, // number of copies
-      '1125', // ticket no
+      [
+        storeName, // store name
+        address, // address
+        phoneNumber, // phone number
+        numberOfCopies, // number of copies
+        '1125', // ticket no
+        '23600 DA', // collected amount
+        '0 DA', // discount
+        '0.00 DA', // charge
+        'Jaden', // caissier
+        '23600 DA', // total
+      ],
       [
         'Kertou Shizao : 200.00 DA x (1)',
         'What : 200.00 DA x (2)',
         'hei : 200.00 DA x (3)',
       ], // list of products
-      '23600 DA', // collected amount
-      '0 DA', // discount
-      '0.00 DA', // charge
-      'Jaden', // caissier
-      '23600 DA', // total
       function (result) {
         if (result) {
           dispatch(updateQuantityReceipt());
@@ -78,7 +92,7 @@ export default function HomeUI() {
           onChangeText={(text) => {
             setStoreName(text);
             const payload = {
-              storeName,
+              storeName: text,
               address,
               phoneNumber,
               numberOfCopies,
@@ -95,7 +109,7 @@ export default function HomeUI() {
             setAddress(text);
             const payload = {
               storeName,
-              address,
+              address: text,
               phoneNumber,
               numberOfCopies,
             };
@@ -112,7 +126,7 @@ export default function HomeUI() {
             const payload = {
               storeName,
               address,
-              phoneNumber,
+              phoneNumber: text,
               numberOfCopies,
             };
             dispatch(updateReceipt(payload));
@@ -143,7 +157,7 @@ export default function HomeUI() {
               storeName,
               address,
               phoneNumber,
-              numberOfCopies,
+              numberOfCopies: text,
             };
             dispatch(updateReceipt(payload));
           }}
