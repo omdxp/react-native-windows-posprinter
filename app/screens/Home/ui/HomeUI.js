@@ -76,7 +76,7 @@ export default function HomeUI() {
         caissier, // caissier
         totalPrice, // total
         thanks, // thanks
-      ],
+      ], // product details
       listOfProducts, // list of products
       function (result) {
         if (result) {
@@ -85,7 +85,6 @@ export default function HomeUI() {
       },
     );
   };
-  console.log('products:', products);
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -101,7 +100,7 @@ export default function HomeUI() {
         }}>
         <TextInput
           placeholder={'Store name'}
-          style={{width: 200, textAlign: 'center'}}
+          style={{width: 200, textAlign: 'center', height: 40}}
           value={storeName}
           onChangeText={(text) => {
             setStoreName(text);
@@ -116,7 +115,7 @@ export default function HomeUI() {
         />
         <TextInput
           placeholder={'Your address'}
-          style={{width: 200, textAlign: 'center'}}
+          style={{width: 200, textAlign: 'center', height: 40}}
           value={address}
           onChangeText={(text) => {
             setAddress(text);
@@ -131,7 +130,7 @@ export default function HomeUI() {
         />
         <TextInput
           placeholder={'Your phone number'}
-          style={{width: 200, textAlign: 'center'}}
+          style={{width: 200, textAlign: 'center', height: 40}}
           value={phoneNumber}
           onChangeText={(text) => {
             setPhoneNumber(text);
@@ -154,6 +153,7 @@ export default function HomeUI() {
               alignItems: 'center',
             }}>
             <TextInput
+              style={{height: 40}}
               placeholder={'Product name'}
               onChangeText={(text) => {
                 products[index].productName = text;
@@ -163,6 +163,7 @@ export default function HomeUI() {
             />
             <Text> : </Text>
             <TextInput
+              style={{height: 40}}
               placeholder={'Price'}
               onChangeText={(text) => {
                 products[index].price = text;
@@ -172,6 +173,7 @@ export default function HomeUI() {
             />
             <Text> x (</Text>
             <TextInput
+              style={{height: 40}}
               placeholder={'Qtt'}
               onChangeText={(text) => {
                 products[index].quantity = text;
@@ -233,6 +235,7 @@ export default function HomeUI() {
           }}>
           <Text>Collected amount : </Text>
           <TextInput
+            style={{height: 40}}
             placeholder={'Price'}
             onChangeText={(text) => {
               setCollectedAmount(text);
@@ -248,6 +251,7 @@ export default function HomeUI() {
           }}>
           <Text>Discount : </Text>
           <TextInput
+            style={{height: 40}}
             placeholder={'Price'}
             onChangeText={(text) => {
               setDiscount(text);
@@ -263,6 +267,7 @@ export default function HomeUI() {
           }}>
           <Text>Charge : </Text>
           <TextInput
+            style={{height: 40}}
             placeholder={'Price'}
             onChangeText={(text) => {
               setCharge(text);
@@ -278,6 +283,7 @@ export default function HomeUI() {
           }}>
           <Text>Caissier : </Text>
           <TextInput
+            style={{height: 40}}
             placeholder={'Name'}
             onChangeText={(text) => {
               setCaissier(text);
@@ -287,7 +293,7 @@ export default function HomeUI() {
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Text style={{fontSize: 20}}>Total : </Text>
           <TextInput
-            style={{fontSize: 20}}
+            style={{fontSize: 20, height: 40}}
             placeholder={'Price'}
             onChangeText={(text) => {
               setTotalPrice(text);
@@ -304,6 +310,7 @@ export default function HomeUI() {
           }}>
           <Text>Ticket number : #</Text>
           <TextInput
+            style={{height: 40}}
             placeholder={'Number'}
             onChangeText={(text) => {
               setTicketNumber(text);
@@ -312,7 +319,7 @@ export default function HomeUI() {
         </View>
         <Text style={{alignSelf: 'flex-start'}}>Date PM/AM</Text>
         <TextInput
-          style={{fontSize: 20, textAlign: 'center'}}
+          style={{fontSize: 20, textAlign: 'center', height: 40}}
           placeholder={'Thanks'}
           onChangeText={(text) => {
             setThanks(text);
@@ -321,7 +328,7 @@ export default function HomeUI() {
         <Text>Combien de copie?</Text>
         <TextInput
           placeholder={'Type a number'}
-          style={{width: 200, textAlign: 'center'}}
+          style={{width: 200, textAlign: 'center', height: 40}}
           value={numberOfCopies}
           onChangeText={(text) => {
             setNumberOfCopies(text);
