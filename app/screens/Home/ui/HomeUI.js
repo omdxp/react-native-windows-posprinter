@@ -24,6 +24,20 @@ export default function HomeUI() {
   const [address, setAddress] = useState(state.address);
   const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
   const [numberOfCopies, setNumberOfCopies] = useState(state.numberOfCopies);
+  const [products, setProducts] = useState([
+    {
+      productName: '',
+      price: '',
+      quantity: '',
+    },
+  ]);
+  const [collectedAmount, setCollectedAmount] = useState('');
+  const [discount, setDiscount] = useState('');
+  const [charge, setCharge] = useState('');
+  const [caissier, setCaissier] = useState('');
+  const [totalPrice, setTotalPrice] = useState('');
+  const [ticketNumber, setTicketNumber] = useState('');
+  const [thanks, setThanks] = useState('');
   // component did mount
   useEffect(() => {
     setStoreName(state.storeName);
