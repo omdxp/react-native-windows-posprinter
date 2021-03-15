@@ -1,11 +1,12 @@
 // import react native
-import React, {useState, useReducer, useEffect} from 'react';
+import React, {useState, useReducer, useEffect, useRef} from 'react';
 import {
   Text,
   View,
   TouchableOpacity,
   NativeModules,
   TextInput,
+  ScrollView,
 } from 'react-native';
 
 // import redux
@@ -24,13 +25,11 @@ export default function HomeUI() {
   const [address, setAddress] = useState(state.address);
   const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
   const [numberOfCopies, setNumberOfCopies] = useState(state.numberOfCopies);
-  let productKey = 0;
   const [products, setProducts] = useState([
     {
       productName: '',
       price: '',
       quantity: '',
-      key: productKey,
     },
   ]);
   const [collectedAmount, setCollectedAmount] = useState('');
@@ -142,9 +141,9 @@ export default function HomeUI() {
           }}
         />
         <Text>-------------------------------------------------</Text>
-        {products.map((product) => (
+        {products.map((product, index) => (
           <View
-            key={product.key}
+            key={index}
             style={{
               flexDirection: 'row',
               alignSelf: 'flex-start',
@@ -153,48 +152,59 @@ export default function HomeUI() {
             <TextInput
               placeholder={'Product name'}
               onChangeText={(text) => {
-                setProducts([
-                  ...products,
-                  {
-                    ...product,
-                    productName: text,
-                  },
-                ]);
+                console.log(index);
+                products[index].productName = text;
+                console.log(products);
+                setProducts(products);
               }}
-              value={product.productName}
+              defaultValue={product.productName}
             />
             <Text> : </Text>
             <TextInput
               placeholder={'Price'}
               onChangeText={(text) => {
-                setProducts([
-                  ...products,
-                  {
-                    ...product,
-                    price: text,
-                  },
-                ]);
+                product.price = text;
               }}
-              value={product.price}
+              defaultValue={product.price}
             />
             <Text> * (</Text>
             <TextInput
               placeholder={'Qtt'}
               onChangeText={(text) => {
-                setProducts([
-                  ...products,
-                  {
-                    ...product,
-                    quantity: text,
-                  },
-                ]);
+                product.quantity = text;
               }}
-              value={product.quantity}
+              defaultValue={product.quantity}
             />
             <Text>)</Text>
           </View>
         ))}
-
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'green',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: 5,
+          }}
+          onPress={() => {
+            setProducts([
+              ...products,
+              {
+                productName: '',
+                price: '',
+                quantity: '',
+              },
+            ]);
+          }}>
+          <Text
+            style={{
+              fontSize: 30,
+              fontWeight: 'bold',
+              color: 'white',
+            }}>
+            +
+          </Text>
+        </TouchableOpacity>
         <Text>-------------------------------------------------</Text>
         <View
           style={{
