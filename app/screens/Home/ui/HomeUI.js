@@ -11,7 +11,6 @@ import {
 // import redux
 import {initState, ReceiptReducer} from '../../../redux/reducers';
 import {updateReceipt, updateQuantityReceipt} from '../../../redux/actions';
-import {useSelector} from 'react-redux';
 
 // import Home functions
 import {} from '../functions';
@@ -20,8 +19,6 @@ import {} from '../functions';
 export default function HomeUI() {
   // use reducer
   const [state, dispatch] = useReducer(ReceiptReducer, initState);
-  // use selector
-  const stateSelector = useSelector((state) => state.ReceiptReducer);
   // states
   const [storeName, setStoreName] = useState(state.storeName);
   const [address, setAddress] = useState(state.address);
@@ -29,8 +26,6 @@ export default function HomeUI() {
   const [numberOfCopies, setNumberOfCopies] = useState(state.numberOfCopies);
   // component did mount
   useEffect(() => {
-    console.log('state:', state);
-    console.log('stateSelector:', stateSelector);
     setStoreName(state.storeName);
     setAddress(state.address);
     setPhoneNumber(state.phoneNumber);

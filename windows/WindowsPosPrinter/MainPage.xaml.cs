@@ -54,9 +54,6 @@ namespace WindowsPosPrinter
         private const string pCaissier = "Caissier : ";
         private const string pTotal = "Total : ";
         private const string pTicketNumber = "Ticket number : #";
-        private string pDate = DateTime.Now.ToString();
-        private const string pCombienDeCopie = "Combien de copie?";
-        private const string pNombreCopie = "1";
         [ReactMethod("printReceipt")]
         public bool printReceipt(
             List<string> ticketDetails,
@@ -102,7 +99,7 @@ namespace WindowsPosPrinter
                     SelectJustification(Justification.Center).Add(pLine, LF).Print(address);
                     SelectCharSizeHeight(CharSizeHeight.Normal).Add("").Print(address);
                     SelectJustification(Justification.Left).Add(pTicketNumber + ticketNumber, LF).Print(address);
-                    SelectJustification(Justification.Left).Add(pDate, LF).Print(address);
+                    SelectJustification(Justification.Left).Add(DateTime.Now.ToString(), LF).Print(address);
                     SelectCharSizeHeight(CharSizeHeight.Double).Add("").Print(address);
                     SelectJustification(Justification.Center).Add(LF).Print(address);
                     PrintQRCode(ticketNumber).Print(address);
