@@ -95,7 +95,6 @@ export default function HomeUI() {
             dispatch(updateReceipt(payload));
           }}
         />
-        <Text>Address</Text>
         <TextInput
           placeholder={'Your address'}
           style={{width: 200, textAlign: 'center'}}
@@ -111,7 +110,6 @@ export default function HomeUI() {
             dispatch(updateReceipt(payload));
           }}
         />
-        <Text>Phone number</Text>
         <TextInput
           placeholder={'Your phone number'}
           style={{width: 200, textAlign: 'center'}}
@@ -127,20 +125,80 @@ export default function HomeUI() {
             dispatch(updateReceipt(payload));
           }}
         />
-        <Text>---------------------------------------</Text>
-        <Text style={{alignSelf: 'flex-start'}}>* Product example</Text>
-        <Text style={{alignSelf: 'flex-start'}}>5000.00 DA * (1)</Text>
-        <Text style={{alignSelf: 'flex-start'}}>Aspirine Upsa</Text>
-        <Text>---------------------------------------</Text>
-        <Text style={{alignSelf: 'flex-start'}}>
-          Collected amount : 5600 DA
-        </Text>
-        <Text style={{alignSelf: 'flex-start'}}>Discount : 0 DA</Text>
-        <Text style={{alignSelf: 'flex-start'}}>0.00 DA</Text>
-        <Text style={{fontSize: 20}}>Total : 5600 DA</Text>
-        <Text>---------------------------------------</Text>
-        <Text style={{alignSelf: 'flex-start'}}>Ticket number : #1125</Text>
+        <Text>-------------------------------------------------</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'flex-start',
+            alignItems: 'center',
+          }}>
+          <TextInput placeholder={'Product name'} />
+          <Text> : </Text>
+          <TextInput placeholder={'Price'} />
+          <Text> * (</Text>
+          <TextInput placeholder={'Qtt'} />
+          <Text>)</Text>
+        </View>
+        <Text>-------------------------------------------------</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'flex-start',
+            alignItems: 'center',
+          }}>
+          <Text>Collected amount : </Text>
+          <TextInput placeholder={'Price'} />
+          <Text> DA</Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'flex-start',
+            alignItems: 'center',
+          }}>
+          <Text>Discount : </Text>
+          <TextInput placeholder={'Price'} />
+          <Text> DA</Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'flex-start',
+            alignItems: 'center',
+          }}>
+          <Text>Charge : </Text>
+          <TextInput placeholder={'Price'} />
+          <Text> DA</Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'flex-start',
+            alignItems: 'center',
+          }}>
+          <Text>Caissier : </Text>
+          <TextInput placeholder={'Name'} />
+        </View>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text style={{fontSize: 20}}>Total : </Text>
+          <TextInput style={{fontSize: 20}} placeholder={'Price'} />
+          <Text style={{fontSize: 20}}> DA</Text>
+        </View>
+        <Text>-------------------------------------------------</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'flex-start',
+            alignItems: 'center',
+          }}>
+          <Text>Ticket number : #</Text>
+          <TextInput placeholder={'Number'} />
+        </View>
         <Text style={{alignSelf: 'flex-start'}}>Date PM/AM</Text>
+        <TextInput
+          style={{fontSize: 20, textAlign: 'center'}}
+          placeholder={'Thanks'}
+        />
         <Text>Combien de copie?</Text>
         <TextInput
           placeholder={'Type a number'}
@@ -157,7 +215,6 @@ export default function HomeUI() {
             dispatch(updateReceipt(payload));
           }}
         />
-        <Text style={{fontSize: 20}}>Merci pour votre visite</Text>
       </View>
       <TouchableOpacity
         onPress={printPressHandler}
