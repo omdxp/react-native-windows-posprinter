@@ -150,11 +150,47 @@ export default function HomeUI() {
               alignSelf: 'flex-start',
               alignItems: 'center',
             }}>
-            <TextInput placeholder={'Product name'} />
+            <TextInput
+              placeholder={'Product name'}
+              onChangeText={(text) => {
+                setProducts([
+                  ...products,
+                  {
+                    ...product,
+                    productName: text,
+                  },
+                ]);
+              }}
+              value={product.productName}
+            />
             <Text> : </Text>
-            <TextInput placeholder={'Price'} />
+            <TextInput
+              placeholder={'Price'}
+              onChangeText={(text) => {
+                setProducts([
+                  ...products,
+                  {
+                    ...product,
+                    price: text,
+                  },
+                ]);
+              }}
+              value={product.price}
+            />
             <Text> * (</Text>
-            <TextInput placeholder={'Qtt'} />
+            <TextInput
+              placeholder={'Qtt'}
+              onChangeText={(text) => {
+                setProducts([
+                  ...products,
+                  {
+                    ...product,
+                    quantity: text,
+                  },
+                ]);
+              }}
+              value={product.quantity}
+            />
             <Text>)</Text>
           </View>
         ))}
