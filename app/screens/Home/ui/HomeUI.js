@@ -57,24 +57,27 @@ export default function HomeUI() {
       alert('Please enter all fields');
       return;
     }
+    let listOfProducts = [];
+    products.map((product, index) => {
+      listOfProducts.push(
+        `${product.productName} : ${product.price} DA x (${product.quantity})`,
+      );
+    });
     NativeModules.PosPrinter.printReceipt(
       [
         storeName, // store name
         address, // address
         phoneNumber, // phone number
         numberOfCopies, // number of copies
-        '1125', // ticket no
-        '23600 DA', // collected amount
-        '0 DA', // discount
-        '0.00 DA', // charge
-        'Jaden', // caissier
-        '23600 DA', // total
+        ticketNumber, // ticket no
+        collectedAmount, // collected amount
+        discount, // discount
+        charge, // charge
+        caissier, // caissier
+        totalPrice, // total
+        thanks, // thanks
       ],
-      [
-        'Kertou Shizao : 200.00 DA x (1)',
-        'What : 200.00 DA x (2)',
-        'hei : 200.00 DA x (3)',
-      ], // list of products
+      listOfProducts, // list of products
       function (result) {
         if (result) {
           dispatch(updateQuantityReceipt());
@@ -82,6 +85,7 @@ export default function HomeUI() {
       },
     );
   };
+  console.log('products:', products);
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -152,9 +156,7 @@ export default function HomeUI() {
             <TextInput
               placeholder={'Product name'}
               onChangeText={(text) => {
-                console.log(index);
                 products[index].productName = text;
-                console.log(products);
                 setProducts(products);
               }}
               defaultValue={product.productName}
@@ -163,19 +165,36 @@ export default function HomeUI() {
             <TextInput
               placeholder={'Price'}
               onChangeText={(text) => {
-                product.price = text;
+                products[index].price = text;
+                setProducts(products);
               }}
               defaultValue={product.price}
             />
-            <Text> * (</Text>
+            <Text> x (</Text>
             <TextInput
               placeholder={'Qtt'}
               onChangeText={(text) => {
-                product.quantity = text;
+                products[index].quantity = text;
+                setProducts(products);
               }}
               defaultValue={product.quantity}
             />
             <Text>)</Text>
+            <TouchableOpacity
+              style={{
+                backgroundColor: 'red',
+                width: 30,
+                height: 30,
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: 1,
+                margin: 1,
+              }}
+              onPress={() => {
+                setProducts(products.filter((item) => item !== product));
+              }}>
+              <Text style={{color: 'white'}}>x</Text>
+            </TouchableOpacity>
           </View>
         ))}
         <TouchableOpacity
@@ -213,7 +232,12 @@ export default function HomeUI() {
             alignItems: 'center',
           }}>
           <Text>Collected amount : </Text>
-          <TextInput placeholder={'Price'} />
+          <TextInput
+            placeholder={'Price'}
+            onChangeText={(text) => {
+              setCollectedAmount(text);
+            }}
+          />
           <Text> DA</Text>
         </View>
         <View
@@ -223,7 +247,12 @@ export default function HomeUI() {
             alignItems: 'center',
           }}>
           <Text>Discount : </Text>
-          <TextInput placeholder={'Price'} />
+          <TextInput
+            placeholder={'Price'}
+            onChangeText={(text) => {
+              setDiscount(text);
+            }}
+          />
           <Text> DA</Text>
         </View>
         <View
@@ -233,7 +262,12 @@ export default function HomeUI() {
             alignItems: 'center',
           }}>
           <Text>Charge : </Text>
-          <TextInput placeholder={'Price'} />
+          <TextInput
+            placeholder={'Price'}
+            onChangeText={(text) => {
+              setCharge(text);
+            }}
+          />
           <Text> DA</Text>
         </View>
         <View
@@ -243,11 +277,22 @@ export default function HomeUI() {
             alignItems: 'center',
           }}>
           <Text>Caissier : </Text>
-          <TextInput placeholder={'Name'} />
+          <TextInput
+            placeholder={'Name'}
+            onChangeText={(text) => {
+              setCaissier(text);
+            }}
+          />
         </View>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Text style={{fontSize: 20}}>Total : </Text>
-          <TextInput style={{fontSize: 20}} placeholder={'Price'} />
+          <TextInput
+            style={{fontSize: 20}}
+            placeholder={'Price'}
+            onChangeText={(text) => {
+              setTotalPrice(text);
+            }}
+          />
           <Text style={{fontSize: 20}}> DA</Text>
         </View>
         <Text>-------------------------------------------------</Text>
@@ -258,12 +303,20 @@ export default function HomeUI() {
             alignItems: 'center',
           }}>
           <Text>Ticket number : #</Text>
-          <TextInput placeholder={'Number'} />
+          <TextInput
+            placeholder={'Number'}
+            onChangeText={(text) => {
+              setTicketNumber(text);
+            }}
+          />
         </View>
         <Text style={{alignSelf: 'flex-start'}}>Date PM/AM</Text>
         <TextInput
           style={{fontSize: 20, textAlign: 'center'}}
           placeholder={'Thanks'}
+          onChangeText={(text) => {
+            setThanks(text);
+          }}
         />
         <Text>Combien de copie?</Text>
         <TextInput

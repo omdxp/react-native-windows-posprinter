@@ -69,6 +69,7 @@ namespace WindowsPosPrinter
             string charge = ticketDetails[7];
             string caissier = ticketDetails[8];
             string total = ticketDetails[9];
+            string thanks = ticketDetails[10];
 
             bool printed = false;
             try
@@ -88,13 +89,13 @@ namespace WindowsPosPrinter
                         SelectJustification(Justification.Left).Add("* " + product, LF).Print(address);
                     });
                     SelectJustification(Justification.Center).Add(pLine, LF).Print(address);
-                    SelectJustification(Justification.Left).Add(pCollectedAmount + collectedAmount, LF).Print(address);
-                    SelectJustification(Justification.Left).Add(pDiscount + discount, LF).Print(address);
-                    SelectJustification(Justification.Left).Add(pCharge + charge, LF).Print(address);
+                    SelectJustification(Justification.Left).Add(pCollectedAmount + collectedAmount + " DA", LF).Print(address);
+                    SelectJustification(Justification.Left).Add(pDiscount + discount + " DA", LF).Print(address);
+                    SelectJustification(Justification.Left).Add(pCharge + charge + " DA", LF).Print(address);
                     SelectJustification(Justification.Left).Add(pCaissier + caissier, LF).Print(address);
                     SelectCharSizeHeight(CharSizeHeight.Triple).Add(LF).Print(address);
                     SelectCharSizeWidth(CharSizeWidth.Double).Add("").Print(address);
-                    SelectJustification(Justification.Center).Add(pTotal + total, LF).Print(address);
+                    SelectJustification(Justification.Center).Add(pTotal + total + " DA", LF).Print(address);
                     SelectCharSizeHeight(CharSizeHeight.Normal).Add(LF).Print(address);
                     SelectJustification(Justification.Center).Add(pLine, LF).Print(address);
                     SelectCharSizeHeight(CharSizeHeight.Normal).Add("").Print(address);
@@ -105,7 +106,7 @@ namespace WindowsPosPrinter
                     PrintQRCode(ticketNumber).Print(address);
                     SelectCharSizeHeight(CharSizeHeight.Triple).Add("").Print(address);
                     SelectCharSizeWidth(CharSizeWidth.Double).Add(LF).Print(address);
-                    SelectJustification(Justification.Center).Add("Merci pour votre visite", LF, LF, LF, LF, LF, PaperCut).Print(address);
+                    SelectJustification(Justification.Center).Add(thanks, LF, LF, LF, LF, LF, PaperCut).Print(address);
                 }
 
                 SelectJustification(Justification.Center).Add(PrintAndReturnToStandardMode, OpenDrawer).Print(address);
