@@ -24,11 +24,13 @@ export default function HomeUI() {
   const [address, setAddress] = useState(state.address);
   const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
   const [numberOfCopies, setNumberOfCopies] = useState(state.numberOfCopies);
+  let productKey = 0;
   const [products, setProducts] = useState([
     {
       productName: '',
       price: '',
       quantity: '',
+      key: productKey,
     },
   ]);
   const [collectedAmount, setCollectedAmount] = useState('');
@@ -140,19 +142,23 @@ export default function HomeUI() {
           }}
         />
         <Text>-------------------------------------------------</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignSelf: 'flex-start',
-            alignItems: 'center',
-          }}>
-          <TextInput placeholder={'Product name'} />
-          <Text> : </Text>
-          <TextInput placeholder={'Price'} />
-          <Text> * (</Text>
-          <TextInput placeholder={'Qtt'} />
-          <Text>)</Text>
-        </View>
+        {products.map((product) => (
+          <View
+            key={product.key}
+            style={{
+              flexDirection: 'row',
+              alignSelf: 'flex-start',
+              alignItems: 'center',
+            }}>
+            <TextInput placeholder={'Product name'} />
+            <Text> : </Text>
+            <TextInput placeholder={'Price'} />
+            <Text> * (</Text>
+            <TextInput placeholder={'Qtt'} />
+            <Text>)</Text>
+          </View>
+        ))}
+
         <Text>-------------------------------------------------</Text>
         <View
           style={{
